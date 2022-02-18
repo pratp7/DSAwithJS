@@ -13,16 +13,21 @@ const b = {};
 // myObj[b] = "b";
 
 // console.log(myObj);
+let arr = [6];
 
 const myMap = new Map([
   [a, "a"],
   [b, "b"],
   ["number", "key"],
   [[1, 2, 3], "arr"],
+  [1, 2],
 ]);
 
 // myMap.set(2, "c");
-myMap.set("c", 2);
+if (myMap.has(arr[0])) {
+  myMap.set(arr[0], myMap.get(arr[0]) + 2);
+}
+
 console.log(myMap);
 myMap.delete("c"); // delete method removes the elements according to the key passed
 // myMap.set("c", "c");

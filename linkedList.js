@@ -156,3 +156,142 @@ ll.printListData();
 ll.getAt(0);
 console.log("List cleared");
 ll.clearList();
+
+//reverse a linked list
+
+function reverseLinkedList(head) {
+  let current = head;
+  let prev = null;
+
+  while (current) {
+    let temp = current.next;
+    current.next = prev;
+    prev = current;
+    current = temp;
+  }
+  return prev;
+}
+
+//remove duplicates
+function removeDuplicates(head) {
+  let set = new Set();
+  let current = head;
+  // let prev=null;
+  // while(current){
+  //     if(set.has(current.val)){
+  //         prev.next=current.next;
+
+  //     }else{
+  //         set.add(current.val);
+  //         prev=current;
+
+  //     }
+  //    current=current.next;
+
+  // }
+
+  while (current && current.next) {
+    set.add(current.val);
+    if (set.has(current.next.val)) {
+      current.next = current.next.next;
+    } else {
+      current = current.next;
+    }
+  }
+  return head;
+}
+
+//make middle node the head of the list-------------------------------------------------------------------------
+// function moveMiddleToHead(head) {
+//   let current = head;
+//   let fastpointer = head,
+//     slowpointer = head,
+//     length = 0;
+
+//   if (!head || !head.next) return head;
+
+//   while (fastpointer && fastpointer.next) {
+//     length++;
+//     slowpointer = slowpointer.next;
+//     fastpointer = fastpointer.next.next;
+//   }
+
+//   let firstNode = head;
+//   let count = 0,
+//     midRef = null;
+//   while (current && current.next) {
+//     if (count + 1 === length) {
+//       midRef = current.next;
+//       current.next = current.next.next;
+//       midRef.next = firstNode;
+//     }
+//     count++;
+//     current = current.next;
+//   }
+
+//   return midRef;
+// }
+function moveMiddleToHead(head) {
+  let fastpointer = head,
+    slowpointer = head,
+    prev = null;
+
+  if (!head || !head.next) return head;
+
+  while (fastpointer && fastpointer.next) {
+    prev = slowpointer;
+    slowpointer = slowpointer.next;
+    fastpointer = fastpointer.next.next;
+  }
+
+  let firstNode = head;
+
+  prev.next = slowpointer.next;
+  slowpointer.next = firstNode;
+
+  return slowpointer;
+}
+// -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//delete kth node from last
+function deleteKthToLast(head, k) {
+  if (!head) return head;
+  let current = head;
+  let length = 0;
+
+  while (current) {
+    length++;
+    current = current.next;
+  }
+  current = head;
+  let delNode = length - k;
+
+  if (delNode === 0) {
+    head = head.next;
+    return head;
+  }
+
+  length = 0;
+  while (current && current.next) {
+    if (length + 1 === delNode) {
+      current.next = current.next.next;
+    }
+    length++;
+    current = current.next;
+  }
+
+  return head;
+}
+
+//delete middle nodesif only the nodes reference has been given
+function deleteMiddleNode(node) {
+  let tobedeleted = node;
+  let after = tobedeleted.next;
+  tobedeleted.val = after.val;
+  tobedeleted.next = after.next;
+
+  // node.val = node.next.val;
+  // node.next = node.next.next;
+
+  return node;
+}
